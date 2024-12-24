@@ -7,5 +7,7 @@ LS_COLORS=$LS_COLORS:'di=0;94:'
 export LS_COLORS
 
 # ADDITIONAL FILES
-source ${BASH_SOURCE%/*}/bashra
+source ${BASH_SOURCE%/*}/bashra 
 source ${BASH_SOURCE%/*}/bashrf
+source ${BASH_SOURCE%/*}/tmp
+
