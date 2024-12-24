@@ -1,0 +1,21 @@
+#! /bin/bash 
+
+# "ls" to list colored files with directories first
+    alias ls="ls --color=auto --group-directories-first"
+# "la" to list hidden files
+    alias la="ls -a"
+# "shutdown" to shutdown quickly
+    alias shutdown="shutdown -h now"
+# "restart" or "rst" restart xorg
+    alias restart="xrdb $HOME/.Xresources"
+    alias rst="restart"
+# "pt" to set abnt2 keyboard layout
+    alias pt="setxkbmap -model abnt2 -layout br -variant abnt2"
+# "en" to set en-us keyboard layout
+    alias en="setxkbmap -layout us -variant intl" 
+## "x" to to execute xdg-open
+    alias x="xdg-open"
+## "mon" to configure the additional monitor
+    alias mon="xrandr --output eDP-1 --auto --output HDMI-1 --auto --left-of eDP-1"
+## "src" to load .bashrc
+    alias src="source $HOME/.bashrc"

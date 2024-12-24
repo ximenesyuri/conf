@@ -1,0 +1,100 @@
+#! /bin/bash
+
+# VIM FUNCTION
+ function vim() {
+    declare -A FILETYPE_FUNCTIONS=(
+        ["py"]="vim_py"
+    )
+    declare -A FILETYPE_START_CMDS=(
+        ["md"]="syntax spell toplevel"
+        ["txt"]="syntax spell toplevel, set filetype=text"
+        ["null"]=""
+    )
+    DEFAULT_START_CMDS=("startinsert")
+
+    function vim_cwd() {
+        if [[ -f "/tmp/vim_cwd" ]]; then
+            cd "$(cat /tmp/vim_cwd)"
+            sudo rm /tmp/vim_cwd
+            cd - > /dev/null 2>&1
+        fi
+    }
+
+    function vim_cmd() {
+        cwd=$PWD
+        cd "$(dirname "$1")"
+        if [[ $1 == *.* ]]; then
+            local file_extension=${1##*.}
+            echo $file_extension
+        else
+            local file_extension="null"
+        fi
+        local vim_start_cmd=""
+
+        if [[ -n "${FILETYPE_START_CMDS[$file_extension]}" ]]; then
+            vim_start_cmd="${FILETYPE_START_CMDS[$file_extension]//, / | }"
+        else
+            vim_start_cmd="$(IFS='|'; echo "${DEFAULT_START_CMDS[*]}")"
+        fi
+        command vim -c "$vim_start_cmd" "$@"
+        cd $cwd
+    }
+
+    function vim_dir() {
+        vim_cmd "$@"
+    }
+
+    function vim_py() { 
+        function venv(){
+            dir=$PWD
+            while [[ "$dir" != "/" ]]; do
+                if find "$dir" -maxdepth 1 -type d -name ".venv" | grep -q .; then
+                    echo $dir
+                    return 0
+                fi
+                dir=$(dirname "$dir")
+            done
+            return 1
+        }
+        if [[ -n $(venv) ]]; then
+            source "$(venv)/.venv/bin/activate"
+            vim_cmd "$@"
+            deactivate
+            return
+        fi
+        vim_cmd "$@"
+    }
+
+    if [[ -d "$1" ]]; then
+        vim_dir "$@"
+    else
+        local file_extension="${1##*.}"
+        if [[ -n "${FILETYPE_FUNCTIONS[$file_extension]}" ]]; then
+            "${FILETYPE_FUNCTIONS[$file_extension]}" "$@"
+        else
+            vim_cmd "$@"
+        fi
+    fi
+}
+ 
+
+# BC FUNCTION
+## open "bc" in the interactive mode
+    function bc(){
+        echo "Welcome to bc calculator. Type \"quit\" to exit."
+        command bc -q -i -l $@
+    }
+# RANDOM FUNCTION
+## generate random string following given pattern
+    function random(){
+        var=$(tr -dc A-Za-z0-9 </dev/urandom | head -c $1; echo)
+        echo $var
+        echo $var | xclip -selection clipboard
+    }  
+ 
+# LOCALHOST FUNCTION
+## open localhost in given port
+    function localhost(){
+        firefox localhost:$1/$2 & disown
+    }
+    alias lh="localhost"

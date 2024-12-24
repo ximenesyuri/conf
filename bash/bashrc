@@ -1,0 +1,11 @@
+# DISPLAY
+## set prompt to display only the colored current directory
+dir1="\[\033[37m\]\w\[\033[00m\]"
+PS1="$dir1\$ "
+## unbolded colored directories in "ls" command
+LS_COLORS=$LS_COLORS:'di=0;94:'
+export LS_COLORS
+
+# ADDITIONAL FILES
+source ${BASH_SOURCE%/*}/bashra
+source ${BASH_SOURCE%/*}/bashrf
