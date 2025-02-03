@@ -1,0 +1,109 @@
+snippet root
+:root {
+    $0
+}
+endsnippet
+
+snippet vars.container-txt
+    --container-width-{{ID}}: 100%;
+    --container-height-{{ID}}: auto;
+    --container-bg-color-{{ID}}: transparent;
+    --container-margin-top-{{ID}}: 50px;
+    --container-margin-bottom-{{ID}}: 50px;
+endsnippet
+
+snippet vars.txt
+    --txt-font-family-{{ID}}: 'Montserrat';
+    --txt-font-size-{{ID}}: 30px;
+    --txt-font-color-{{ID}}: #fff;
+    --txt-font-weight-{{ID}}: bold;
+    --txt-font-decoration-{{ID}}: underline;
+    --txt-font-style-{{ID}}: italic;
+endsnippet
+
+snippet vars.txt-hl
+    --txt-highlight-font-family-{{ID}}: 'Montserrat';
+    --txt-highlight-font-size-{{ID}}: 30px;
+    --txt-highlight-font-color-{{ID}}: #fff;
+    --txt-highlight-font-weight-{{ID}}: bold;
+    --txt-highlight-font-decoration-{{ID}}: none;
+    --txt-highlight-font-style-{{ID}}: none;
+endsnippet
+
+snippet vars.txt-bg-hl
+    --txt-bg-highlight-font-family-{{ID}}: 'Montserrat';
+    --txt-bg-highlight-font-size-{{ID}}: 30px;
+    --txt-bg-highlight-font-color-{{ID}}: #fff;
+    --txt-bg-highlight-bg-color-{{ID}}: #9b7b6a;
+    --txt-bg-highlight-font-weight-{{ID}}: bold;
+    --txt-bg-highlight-font-decoration-{{ID}}: none;
+    --txt-bg-highlight-font-style-{{ID}}: none;
+endsnippet
+
+snippet css.container-txt
+    text-align: center;
+    background-color: var(--container-bg-color-{{ID}});
+    width: var(--container-width-{{ID}});
+    height: var(--container-height-{{ID}});
+    margin-top: var(--container-margin-top-{{ID}});
+    margin-bottom: var(--container-margin-bottom-{{ID}});
+endsnippet
+
+snippet css.txt-bg-hl
+.txt-bg-highlight-{{ID}} {
+    font-family: var(--txt-bg-hightlight-font-family-{{ID}});
+    font-size: var(--txt-bg-highlight-font-size-{{ID}});
+    color: var(--txt-bg-highlight-font-color-{{ID}});
+    background-color: var(--txt-bg-highlight-color-{{ID}});
+    font-weight: var(--txt-bg-highlight-font-weight-{{ID}});
+    text-decoration: var(--txt-bg-highlight-font-decoration-{{ID}});
+    font-style: var(--txt-bg-highlight-font-style-{{ID}});
+}
+endsnippet
+
+snippet css.txt-hl
+.txt-highlight-{{ID}} {
+    font-family: var(--txt-hightlight-font-family-{{ID}});
+    font-size: var(--txt-highlight-font-size-{{ID}});
+    color: var(--txt-highlight-font-color-{{ID}});
+    font-weight: var(--txt-highlight-font-weight-{{ID}});
+    text-decoration: var(--txt-highlight-font-decoration-{{ID}});
+    font-style: var(--txt-highlight-font-style-{{ID}});
+}
+endsnippet
+
+snippet css.txt 
+.txt-{{ID}} {
+    font-family: var(--txt-font-family-{{ID}});
+    font-size: var(--txt-font-size-{{ID}});
+    color: var(--txt-font-color-{{ID}});
+    font-weight: var(--txt-font-weight-{{ID}});
+    text-decoration: var(--txt-font-decoration-{{ID}});
+    font-style: var(--txt-font-style-{{ID}});
+}
+endsnippet
+
+snippet css.icons
+.icons-{{ID}} {
+    font-family: var(--icons-font-family-{{ID}});
+    color: var(--icons-color-{{ID}});
+    font-size: var(--icons-size-{{ID}});
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -moz-font-feature-settings: 'liga';
+    -moz-osx-font-smoothing: grayscale;
+}
+endsnippet
+
+snippet media
+@media (max-width $0)  {
+
+}
+endsnippet

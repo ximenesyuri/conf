@@ -1,0 +1,124 @@
+# INLINE CODE
+snippet ' "preformatted inline"
+\`
+endsnippet
+
+snippet " "preformatted display"
+\`\`\`
+endsnippet
+
+snippet "" "preformatted display"
+\`\`\`
+$0
+\`\`\`
+endsnippet
+
+# HYPERLINK
+snippet [ "hyperlink"
+[${1:label}](${2:url})
+endsnippet
+
+snippet [# "internal reference"
+[${1:label}](#${2:header})
+endsnippet
+
+snippet [[ "hyperlink"
+[[${1:url}|${2:label}]]
+endsnippet
+
+# IMAGES
+snippet img "images"
+![${1:alt}](${2:url}){ height=50% }
+endsnippet
+
+snippet ![ "images"
+![${1:alt}](${2:url})
+endsnippet
+
+snippet ![" "images"
+![${1:alt}](${2:url} "${3:hover}")
+endsnippet
+
+# FONT STYLE
+snippet * "italic"
+*$0*
+endsnippet
+
+snippet _ "italic"
+_$0_
+endsnippet
+
+snippet ** "bold"
+**$0**
+endsnippet
+
+snippet __ "bold"
+__$0__
+endsnippet
+
+# FRONT MATTER
+snippet title "Front matter"
+---
+title: "${1:title}"
+subtitle: "${2:subtitle}"
+author: "${3:author}"
+date: "${4:date}"
+---
+$0
+endsnippet
+snippet -t "Front matter"
+---
+title: "${1:title}"
+subtitle: "${2:subtitle}"
+author: "${3:author}"
+date: "${4:date}"
+---
+$0
+endsnippet
+
+# TILES
+snippet == "title"
+${0}
+============
+endsnippet
+snippet === "title"
+${0}
+============
+endsnippet
+snippet -- "subtitle"
+$0
+------------
+endsnippet
+snippet --- "subtitle"
+$0
+------------
+endsnippet
+
+### FOR DEV.TO ###
+# front matter
+snippet -dvt "devto"
+---
+title: "${1:title}"
+description: "${2:desc}"
+tags: '${3:tags}'
+cover_image: ''
+series: '${4:serie}'
+canonical_url: null
+published: false
+---
+
+# Introdução
+
+$0
+
+# Fim
+
+Até mais,
+
+Yuri.
+
+* [yxm.me](https://yxm.me)
+* [github.com/yxm-dev](https://github.com/yxm.dev)
+* [codeberg.com/yxm](https://codeberg.com/yxm)
+endsnippet
+

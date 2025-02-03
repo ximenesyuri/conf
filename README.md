@@ -9,3 +9,4 @@ This repository contains my configuration files for:
 - `w3m`
 - `mutt` 
 - `zathura`
+- `vim`
