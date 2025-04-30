@@ -1,0 +1,16 @@
+snippet inc
+>>> include
+endsnippet
+
+priority 10
+extends python
+
+snippet "\$(?P<var>[A-Za-z_]+[A-Za-z0-9_]*)" "Expand Environment Variable" ri
+`!p
+import os
+var_name = match.group('var')
+snip.rv = os.environ.get(var_name, '!!{} is not set!!'.format(var_name))
+`
+endsnippet
+
+

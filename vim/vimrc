@@ -1,4 +1,4 @@
-#! /bin/vim
+#! /usr/bin/env vim
 
 " BASIC config
 "> Modes  
@@ -27,9 +27,9 @@
     set clipboard+=unnamed,unnamedplus
     set go+=a
 ">> when leave vim, pass the vim selection to clipboard
-    autocmd VimLeave * call system("xclip -selection clipboard", getreg('"')) 
+"    autocmd VimLeave * call system("xclip -selection clipboard", getreg('"')) 
 ">> when open vim, copy clipboard selection to vim
-    autocmd VimEnter * let @" = system("xclip -selection clipboard -o")    
+"    autocmd VimEnter * let @" = system("xclip -selection clipboard -o")    
 ">> skip .swp files message 
     autocmd SwapExists * let v:swapchoice = "e"
 ">> use bash in interactive mode to access .bashrc from vim

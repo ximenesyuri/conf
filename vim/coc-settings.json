@@ -1,0 +1,12 @@
+{
+    "coc.source.file.ignoreHidden": false,
+    "html.filetypes": ["html", "jinja"],
+    "coc-class-css.languages": [
+            "html",
+            "jinja",
+            "jinja.html"
+        ],
+    "coc-class-css.cssRoots": [
+        "/home/yx/files/dev/vor/controller/builder/src/static/css/base.css"
+    ]
+}

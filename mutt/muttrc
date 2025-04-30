@@ -67,7 +67,7 @@
 #    set query_command = "'%s'"
 #    bind editor <Tab> complete-query
 ## set mailcap location
-    set mailcap_path=$HOME/.mutt/mailcap
+    set mailcap_path=/home/yx/conf/mutt/mailcap
 ## including file with aliases
 #    source $MUTT/aliases
     

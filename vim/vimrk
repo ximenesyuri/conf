@@ -1,4 +1,4 @@
-#! /bin/vim
+#! /usr/bin/env vim
 
 " DISABLING
 "> uppercase and lowercase 
@@ -65,7 +65,7 @@
     inoremap <c-f> <esc>/
     nnoremap <leader>f /
     inoremap <leader>f <esc>/
-"> ',s' to search and replace
+"> ',,s' to search and replace
     nnoremap <leader>s :%s/foo/bar/g
     inoremap <leader>s <esc>:%s/foo/bar/g
 
@@ -100,13 +100,13 @@
     inoremap <c-a> <esc>ggvGG$
 
 " SPELL
-">> ',,n' to add word to dictionary. ',,m' to display the spell hints
+">> ',,n' to add word to dictionary
     nnoremap <leader>n zgi
     inoremap <leader>n <esc>zg i
+">> ',,m' to display the spell hints
     nnoremap <leader>m z=i
     inoremap <leader>m <esc>z=i
 " CLIPBOARD
-
 "> 'ctrl+x' or ',x' to cut
     vnoremap <c-x> "+c
     vnoremap <leader>x "+c
