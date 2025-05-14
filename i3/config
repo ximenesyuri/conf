@@ -19,8 +19,7 @@
         i3bar_command i3bar
     #    mode hide
     #    hidden_state hide
-        modifier Mod4
-        tray_output none
+        modifier Mod4  
         workspace_buttons no
         separator_symbol " · "
 
@@ -104,6 +103,6 @@
 
 # OTHER
 ## fix keyboard rate and layout
-    exec_always xset r rate 130 35
-    exec_always setxkbmap -layout us -variant intl
+#    exec_always xset r rate 130 35
+#    exec_always setxkbmap -layout us -variant intl
 

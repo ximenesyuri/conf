@@ -14,20 +14,26 @@
     Plug 'tpope/vim-commentary'
     Plug 'skywind3000/asyncrun.vim'
     Plug 'Yggdroot/indentLine'
-"> Highlight
+"> Syntax  
     Plug 'inkarkat/vim-ingo-library'
     Plug 'inkarkat/vim-SyntaxRange'    
     Plug 'vim-python/python-syntax'
     Plug 'Glench/Vim-Jinja2-Syntax'
 "> Other
     Plug 'madox2/vim-ai'
-    "Plug '/home/yx/files/dev/prj/vim/vim-ai'
+    "Plug '/home/yx/vim-jinja'
     call plug#end()
 "> Automatically install missing plugins
     autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \|   PlugInstall --sync | q
   \| endif
+
+  " command! -nargs=1 Jinja2TemplatesDir call jinja2_completion#set_templates_dir(<q-args>)
+  "   Jinja2TemplatesDir /home/yx/files/dev/vor/controller/db/catalog/recursos/builder/estrutura/headers/header-logo-acima
+  "   command! Jinja2ListTemplates :echo keys(g:jinja2_debug_completion_data)
+  "   autocmd BufRead,BufNewFile *.jinja set filetype=jinja
+  "   autocmd FileType jinja setlocal omnifunc=jinja2_completion#complete
 
 "NETRW
 "> Layout
@@ -86,10 +92,10 @@
     augroup END
 
 " ASYNCRUN
-"> '!!' to open AsyncRun. <c-o> to open the logs window
-    nnoremap !! :AsyncRun
-    nnoremap <c-o> :copen<cr>
-    inoremap <c-o> <esc>:copen<cr>
+"> '!' to open AsyncRun. ',,o' to open the logs window
+    nnoremap ! :AsyncRun
+    nnoremap <leader>o :copen<cr>
+    inoremap <leader>o <esc>:copen<cr>
 
 " VIM-COMMENTARY
 " >> ',p' to comment/uncomment paragraph 
@@ -103,21 +109,9 @@
 ">> avoid conflict with links conceal
     let g:indentLine_concealcursor=""
     let g:indentLine_conceallevel=2
-">> ',i' to toggle indentline
+">> ',,i' to toggle indentline
     inoremap <leader>i <esc>:IndentLinesToggle<cr>:startinsert<cr>
     nnoremap <leader>i :IndentLinesToggle<cr>:startinsert<cr>
-
-" COC
-">> set completion keys
-    inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<cr>"
-    inoremap <expr> <tab> coc#pum#visible() ? coc#pum#confirm() : "\<tab>"
-    inoremap <expr> <down> coc#pum#visible() ? coc#pum#next(1) : "\<down>"
-    inoremap <expr> <up> coc#pum#visible() ? coc#pum#prev(1) : "\<up>"
-" >> include '@' in the keyword definition in scss files (for coc-css)
-    autocmd FileType scss setl iskeyword+=@-@
-    autocmd FileType *sync let b:coc_additional_keywords = ["-"]
-" >> install extensions
-    let g:coc_global_extensions = ['coc-html', 'coc-css', 'coc-json', 'coc-snippets', 'coc-pairs', 'coc-class-css']
 
 " ULTISNIPS
 "> set the snippets directory
@@ -125,10 +119,27 @@
 "> set the filetype
     autocmd bufnewfile *.snippets :set filetype=snippets
 "> set the key to expand the snippets
-    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsExpandTrigger="<s-tab>"
 "> set the key to change the focus inside the snippet
     let g:UltiSnipsJumpForwardTrigger="<s-tab>"
     let g:UltiSnipsJumpBackwardTrigger="<c-tab>"
+
+" COC
+">> set completion keys
+    inoremap <expr> <tab> coc#pum#visible() ? coc#pum#insert() : "\<tab>"
+    inoremap <expr> <cr> coc#pum#visible() ? coc#pum#insert() : "\<cr>"
+">> 'ctrl+d' to show documentation
+    function! ShowDocumentation()
+        if CocAction('hasProvider', 'hover')
+            call CocActionAsync('definitionHover') 
+        endif
+    endfunction
+" >> include '@' in the keyword definition in scss files (for coc-css)
+    autocmd FileType scss setl iskeyword+=@-@
+    autocmd FileType *sync let b:coc_additional_keywords = ["-"] 
+" >> install extensions
+    let g:coc_global_extensions = ['coc-html', 'coc-css', 'coc-json', 'coc-snippets', 'coc-pairs', 'coc-class-css']
+    nnoremap <silent> <c-d> :call ShowDocumentation()<CR>
 
 " SYNTAX RANGE
 ">> highlight languagens in markdown files
@@ -161,7 +172,7 @@
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```yml', '```', 'yaml', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```yaml', '```', 'yaml', 'NonText')
 
-" VIM-CHATGPT
+" VIM-AI
 ">> setting the token file
     let g:vim_ai_token_file_path = "/home/yx/sec/openrouter.token"
 ">> setting roles file
@@ -213,11 +224,8 @@
 " PYTHON-SYNTAX
     let g:python_highlight_all = 1
 
-" RUNPY
-augroup RunyGroup
-    autocmd!
-    autocmd FileType python nnoremap <buffer> <C-d> :call Runy()<CR>
-augroup END
+" GENERAL
+    autocmd BufRead,BufNewFile *.html set filetype=jinja
 
 " > COPY
 " >> copy last code block

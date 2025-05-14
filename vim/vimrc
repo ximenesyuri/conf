@@ -11,7 +11,7 @@
     set ttyfast
 "> Search
 ">> make search case-insensitive. capital letters make search case-sensitive
-    set ignorecase 
+    "set ignorecase 
     set smartcase
 "> Window
 ">> show line numbers. show current mode. allow reuse the same windows.   

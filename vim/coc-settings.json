@@ -1,12 +1,36 @@
-{
-    "coc.source.file.ignoreHidden": false,
+{    
+    "outline.autoPreview": true,
+    "colors.enable": true,
+    "suggest.acceptSuggestionOnCommitCharacter": true,
+    "suggest.snippetsSupport": true,
+    "suggest.removeCurrentWord": true,
+    "suggest.triggerCompletionWait": 100,
+    "suggest.preferCompleteThanJumpPlaceholder": true,
+    "html.suggest.html5": true,
     "html.filetypes": ["html", "jinja"],
+    "html.validate.scripts": true,
+    "html.autoClosingTags": true,
+    "html.autoCreateQuotes": true,
+    "html.format.enable": true,
+    "html.hover.documentation": true,
+    "html.hover.references": true,
+    "css.hover.references": true, 
+    "css.hover.documentation": true,
+    "css.format.braceStyle": "expand",
+    "pylsp.plugins.flake8.maxLineLength": 200,
+    "pylsp.plugins.pycodestyle.enabled": false,
+    "pylsp.plugins.mccabe.enabled": false,"
     "coc-class-css.languages": [
-            "html",
-            "jinja",
-            "jinja.html"
-        ],
+        "html",
+        "jinja",
+        "jinja.html"
+    ],
     "coc-class-css.cssRoots": [
-        "/home/yx/files/dev/vor/controller/builder/src/static/css/base.css"
-    ]
-}
+        "/home/yx/files/dev/vor/controller/builder/src/static/css/inline.css"
+    ],
+    "snippets.ultisnips.directories": [          
+        "UltiSnips",
+        "/home/yx/conf/vim/snippets"
+    ]    
+}     
+
