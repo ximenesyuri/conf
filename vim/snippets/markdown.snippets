@@ -1,33 +1,52 @@
-# INLINE CODE
-snippet ' "preformatted inline"
+# CODE
+snippet ' "preformatted inline" b
 \`
 endsnippet
 
-snippet " "preformatted display"
+snippet " "preformatted display" b 
 \`\`\`
 endsnippet
 
-snippet "" "preformatted display"
+snippet "" "preformatted display" b
 \`\`\`
 $0
 \`\`\`
 endsnippet
 
+snippet "b "preformatted display" b 
+\`\`\`bash
+$0  
+\`\`\`
+endsnippet
+
+snippet "py "preformatted display" b 
+\`\`\`python
+$0
+\`\`\`
+endsnippet
+
+snippet "js "preformatted display" b
+\`\`\`js
+$0
+\`\`\`
+endsnippet
+
+
 # HYPERLINK
-snippet [ "hyperlink"
+snippet [ "hyperlink" b
 [${1:label}](${2:url})
 endsnippet
 
-snippet [# "internal reference"
+snippet [# "internal reference" b
 [${1:label}](#${2:header})
 endsnippet
 
-snippet [[ "hyperlink"
+snippet [[ "hyperlink" b
 [[${1:url}|${2:label}]]
 endsnippet
 
 # IMAGES
-snippet img "images"
+snippet img "images" b
 ![${1:alt}](${2:url}){ height=50% }
 endsnippet
 
@@ -39,7 +58,7 @@ snippet ![" "images"
 ![${1:alt}](${2:url} "${3:hover}")
 endsnippet
 
-# FONT STYLE
+# FONT
 snippet * "italic"
 *$0*
 endsnippet
@@ -56,69 +75,112 @@ snippet __ "bold"
 __$0__
 endsnippet
 
-# FRONT MATTER
-snippet title "Front matter"
----
-title: "${1:title}"
-subtitle: "${2:subtitle}"
-author: "${3:author}"
-date: "${4:date}"
----
-$0
-endsnippet
-snippet -t "Front matter"
----
-title: "${1:title}"
-subtitle: "${2:subtitle}"
-author: "${3:author}"
-date: "${4:date}"
----
-$0
+# DRAW
+
+snippet dot "middle dot" w
+·
 endsnippet
 
-# TILES
-snippet == "title"
-${0}
-============
-endsnippet
-snippet === "title"
-${0}
-============
-endsnippet
-snippet -- "subtitle"
-$0
-------------
-endsnippet
-snippet --- "subtitle"
-$0
-------------
+snippet dots "middle dots" w
+···
 endsnippet
 
-### FOR DEV.TO ###
-# front matter
-snippet -dvt "devto"
----
-title: "${1:title}"
-description: "${2:desc}"
-tags: '${3:tags}'
-cover_image: ''
-series: '${4:serie}'
-canonical_url: null
-published: false
----
-
-# Introdução
-
-$0
-
-# Fim
-
-Até mais,
-
-Yuri.
-
-* [yxm.me](https://yxm.me)
-* [github.com/yxm-dev](https://github.com/yxm.dev)
-* [codeberg.com/yxm](https://codeberg.com/yxm)
+snippet vdot "vertical dot" w
+⠨
 endsnippet
 
+snippet vdash  "" w
+¦
+endsnippet
+
+snippet top-arrow "" w
+᭴
+endsnippet
+
+snippet ta "" w
+᭴
+endsnippet
+ 
+snippet bottom-arrow "" w
+v
+endsnippet
+
+snippet ba "" w
+v
+endsnippet
+
+snippet top-left-corner "" w
+┌
+endsnippet
+
+snippet tl "" w
+┌
+endsnippet
+
+snippet top-right-corner "" w
+┐
+endsnippet
+
+snippet tr "" w
+┐
+endsnippet
+
+snippet bottom-left-corner "" w
+└
+endsnippet
+
+snippet bl "" w
+└
+endsnippet
+
+snippet bottom-right-corner "" w
+┘
+endsnippet
+
+snippet hline "" w
+──
+endsnippet
+
+snippet vline "" w
+│
+endsnippet
+
+snippet left-line "" w
+┤
+endsnippet
+
+snippet lline "" w
+┤
+endsnippet
+
+snippet right-line "" w
+├
+endsnippet
+
+snippet rline "" w
+├
+endsnippet
+
+snippet top-line "" w
+┴
+endsnippet
+
+snippet tline "" w
+┴
+endsnippet
+
+snippet bottom-line "" w
+┬
+endsnippet
+
+snippet bline "" w
+┬
+endsnippet
+
+snippet cross-line "" w
+┼
+endsnippet
+
+snippet xline "" w
+┼
+endsnippet

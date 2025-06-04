@@ -9,11 +9,24 @@
 	defaultBranch = main
 
 [alias]
-        back = reset --hard HEAD~
-        com = commit -m \"$@\"
-        ammend = commit --ammend -m \"$@\"
-        send = push origin
+        a = add
+        all = add .
+        back = "!f() { git reset --hard HEAD~$1; }; f"
+        feat = "!f() { vars=\"$@\"; git commit -m \"feat: $vars}\"; }; f"
+        fix  = "!f() { vars=\"$@\"; git commit -m \"fix: $vars\"; }; f"
+        doc  = "!f() { vars=\"$@\"; git commit -m \"doc: $vars\"; }; f"
+        ref  = "!f() { vars=\"$@\"; git commit -m \"ref: $vars\"; }; f"
+        bla = "!f() { git commit -m \"...\"; }; f"
+        info = "!git log -1 --oneline; git status"
+        change = checkout
+        new-branch = checkout -b
+        rm-branch = branch -D
+        ammend = commit --ammend -m
+        send = "!f() { if [ -z \"$1\" ]; then git push origin HEAD; else git push origin \"$1\"; fi; }; f" 
         new-tag = "!f() { \
+            if [ -z \"$1\" ]; then \
+                echo \"Error: Missing tag type (patch, minor, or major). Usage: git new-tag <type> ['message']\" && return 1; \
+            fi; \
             latest_tag=$(git describe --tags --abbrev=0 2>/dev/null); \
             if [ -z \"$latest_tag\" ]; then \
                 echo \"No existing tags found. Starting with v0.1.0\"; \
@@ -28,17 +41,27 @@
                 esac; \
                 new_tag=\"v$major.$minor.$patch\"; \
             fi; \
-            git tag $new_tag; \
+            tag_message=\"\"; \
+            if [ -n \"$2\" ]; then \
+                tag_message=\"-m \\\"$2\\\"\"; \
+            fi; \
+            eval \"git tag $new_tag $tag_message\"; \
             echo \"Created new tag: $new_tag\"; \
         }; f"
         send-tag = "!f() { \
-            if [ -z \"$1\" ]; then \
-                echo \"Error: Missing branch name. Usage: git send-tag <branch>\" && return 1; \
-            fi; \
+            target_branch=${1:-HEAD}; \
             latest_tag=$(git describe --tags --abbrev=0 2>/dev/null); \
             if [ -z \"$latest_tag\" ]; then \
                 echo \"Error: No tags found to push.\" && return 1; \
             fi; \
-            git push origin $latest_tag:$1; \
-            echo \"Pushed tag $latest_tag to branch $1 on origin.\"; \
+            git push origin $latest_tag:$target_branch; \
+            echo \"Pushed tag $latest_tag to branch $target_branch on origin.\"; \
+        }; f"
+        reb = "!f() { \
+            num_commits=\"${1:-10}\"; \
+            if ! [[ \"$num_commits\" =~ ^[0-9]+$ ]]; then \
+                echo \"Error: N must be a positive integer.\"; \
+                echo \"Usage: git reb [<N>]\" && return 1; \
+            fi; \
+            git rebase -i HEAD~\"$num_commits\"; \
         }; f"

@@ -19,3 +19,9 @@
     alias mon="xrandr --output eDP-1 --auto --output HDMI-1 --auto --left-of eDP-1"
 ## "src" to load .bashrc
     alias src="source $HOME/.bashrc"
+## "g" as alias for "git" 
+## Note: 
+##    completion will work only if added "___git_complete g __git_main"
+##    at the end of git completion script
+    alias g="git"
+    

@@ -50,7 +50,7 @@
         let g:netrw_browse_split = 0
     else
         let g:netrw_browse_split = 4
-    endif
+    endif   
 ">> sync current and browsing directories
     let g:netrw_keepdir = 0
 ">> directories on the top, files below
@@ -126,20 +126,24 @@
 
 " COC
 ">> set completion keys
+    inoremap <expr> <down> coc#pum#visible() ? coc#pum#next(1) : (pumvisible() ? "\<lt>down>" : "\<lt>c-o>gj")
+    inoremap <expr> <up> coc#pum#visible() ? coc#pum#prev(1) : (pumvisible() ? "\<lt>up>" : "\<lt>c-o>gk")
     inoremap <expr> <tab> coc#pum#visible() ? coc#pum#insert() : "\<tab>"
     inoremap <expr> <cr> coc#pum#visible() ? coc#pum#insert() : "\<cr>"
 ">> 'ctrl+d' to show documentation
     function! ShowDocumentation()
         if CocAction('hasProvider', 'hover')
-            call CocActionAsync('definitionHover') 
+            call CocAction('definitionHover')
+            sleep 1
+            startinsert
         endif
     endfunction
+    inoremap <silent> <c-d> <esc>:call ShowDocumentation()<cr>
 " >> include '@' in the keyword definition in scss files (for coc-css)
     autocmd FileType scss setl iskeyword+=@-@
     autocmd FileType *sync let b:coc_additional_keywords = ["-"] 
 " >> install extensions
     let g:coc_global_extensions = ['coc-html', 'coc-css', 'coc-json', 'coc-snippets', 'coc-pairs', 'coc-class-css']
-    nnoremap <silent> <c-d> :call ShowDocumentation()<CR>
 
 " SYNTAX RANGE
 ">> highlight languagens in markdown files
@@ -164,7 +168,6 @@
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```ruby', '```', 'ruby', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```rust', '```', 'rust', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```swift', '```', 'swift', 'NonText')
-    autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('\\hltex', '\\hltex', 'tex', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```tex', '```', 'tex', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```typescript', '```', 'typescript', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```ts', '```', 'typescript', 'NonText')
@@ -220,6 +223,15 @@
     vnoremap <c-g> :AIChat
 ">> 'ctrl+e' in visual mode to edit
     vnoremap <c-e> :AIEdit
+">> add syntax highlight
+    autocmd BufWinEnter,FileType aichat call SyntaxRange#Include('```bash', '```', 'bash', 'NonText')
+    autocmd BufWinEnter,FileType aichat call SyntaxRange#Include('```css', '```', 'css', 'NonText')
+    autocmd BufWinEnter,FileType aichat call SyntaxRange#Include('```html', '```', 'html', 'NonText')
+    autocmd BufWinEnter,FileType aichat call SyntaxRange#Include('```js', '```', 'javascript', 'NonText')
+    autocmd BufWinEnter,FileType aichat call SyntaxRange#Include('```python', '```', 'python', 'NonText')
+    autocmd BufWinEnter,FileType aichat call SyntaxRange#Include('```yml', '```', 'yaml', 'NonText')
+    autocmd BufWinEnter,FileType aichat call SyntaxRange#Include('```yaml', '```', 'yaml', 'NonText')
+
     
 " PYTHON-SYNTAX
     let g:python_highlight_all = 1
