@@ -8,9 +8,7 @@
 [init]
 	defaultBranch = main
 
-[alias]
-        a = add
-        all = add .
+[alias] 
         back = "!f() { git reset --hard HEAD~$1; }; f"
         feat = "!f() { vars=\"$@\"; git commit -m \"feat: $vars}\"; }; f"
         fix  = "!f() { vars=\"$@\"; git commit -m \"fix: $vars\"; }; f"
@@ -18,7 +16,7 @@
         ref  = "!f() { vars=\"$@\"; git commit -m \"ref: $vars\"; }; f"
         bla = "!f() { git commit -m \"...\"; }; f"
         info = "!git log -1 --oneline; git status"
-        change = checkout
+        change = "!f() { local branch; if [ -z \"$1\" ]; then branch=$(git branch --all --format=\"%(refname:short)\" | fzf --prompt=\"Select branch: \" --height=20% --layout=reverse --border); if [ -n \"$branch\" ]; then git checkout \"$branch\"; fi; else git checkout \"$1\"; fi; }; f" 
         new-branch = checkout -b
         rm-branch = branch -D
         ammend = commit --ammend -m
@@ -54,7 +52,7 @@
             if [ -z \"$latest_tag\" ]; then \
                 echo \"Error: No tags found to push.\" && return 1; \
             fi; \
-            git push origin $latest_tag:$target_branch; \
+            git push origin $latest_tag; \
             echo \"Pushed tag $latest_tag to branch $target_branch on origin.\"; \
         }; f"
         reb = "!f() { \
