@@ -9,4 +9,3 @@ export LS_COLORS
 # ADDITIONAL FILES
 source ${BASH_SOURCE%/*}/bashra 
 source ${BASH_SOURCE%/*}/bashrf
-source ${BASH_SOURCE%/*}/z
