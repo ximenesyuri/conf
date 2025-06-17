@@ -10,10 +10,10 @@
 
 [alias] 
         back = "!f() { git reset --hard HEAD~$1; }; f"
-        feat = "!f() { vars=\"$@\"; git commit -m \"feat: $vars}\"; }; f"
-        fix  = "!f() { vars=\"$@\"; git commit -m \"fix: $vars\"; }; f"
-        doc  = "!f() { vars=\"$@\"; git commit -m \"doc: $vars\"; }; f"
-        ref  = "!f() { vars=\"$@\"; git commit -m \"ref: $vars\"; }; f"
+        feat = "!f() { vars=\"$@\"; git commit -m \"feat: $vars\"; }; f"
+        fix  = "!f() { vars=\"$@\"; git commit -m \"fix:  $vars\"; }; f"
+        doc  = "!f() { vars=\"$@\"; git commit -m \"doc:  $vars\"; }; f"
+        ref  = "!f() { vars=\"$@\"; git commit -m \"ref:  $vars\"; }; f"
         bla = "!f() { git commit -m \"...\"; }; f"
         info = "!git log -1 --oneline; git status"
         change = "!f() { local branch; if [ -z \"$1\" ]; then branch=$(git branch --all --format=\"%(refname:short)\" | fzf --prompt=\"Select branch: \" --height=20% --layout=reverse --border); if [ -n \"$branch\" ]; then git checkout \"$branch\"; fi; else git checkout \"$1\"; fi; }; f" 

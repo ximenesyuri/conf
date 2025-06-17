@@ -102,7 +102,6 @@
     bindsym Ctrl+Shift+r restart
 
 # OTHER
-## fix keyboard rate and layout
-#    exec_always xset r rate 130 35
-#    exec_always setxkbmap -layout us -variant intl
-
+    exec_always xset r rate 130 35
+    exec_always setxkbmap -layout us -variant intl
+    exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc 
