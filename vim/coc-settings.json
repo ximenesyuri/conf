@@ -47,6 +47,10 @@
         "UltiSnips",
         "/home/yx/conf/vim/snippets"
     ],
-    "snippets.ultisnips.pythonPrompt": false
+    "snippets.ultisnips.pythonPrompt": false,
+    "markdown-preview-enhanced.previewTheme": "github-dark.css",
+    "markdown-preview-enhanced.mathRenderingOption": "KaTeX",
+    "markdown-preview-enhanced.mathBlockDelimiters": [[":::tex", ":::"]],
+    "markdown-preview-enhanced.mathInlineDelimiters": [[":tex", ":"]]
 }     
 

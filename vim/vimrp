@@ -21,19 +21,12 @@
     Plug 'Glench/Vim-Jinja2-Syntax'
 "> Other
     Plug 'madox2/vim-ai'
-    "Plug '/home/yx/vim-jinja'
     call plug#end()
 "> Automatically install missing plugins
     autocmd VimEnter *
   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
   \|   PlugInstall --sync | q
   \| endif
-
-  " command! -nargs=1 Jinja2TemplatesDir call jinja2_completion#set_templates_dir(<q-args>)
-  "   Jinja2TemplatesDir /home/yx/files/dev/vor/controller/db/catalog/recursos/builder/estrutura/headers/header-logo-acima
-  "   command! Jinja2ListTemplates :echo keys(g:jinja2_debug_completion_data)
-  "   autocmd BufRead,BufNewFile *.jinja set filetype=jinja
-  "   autocmd FileType jinja setlocal omnifunc=jinja2_completion#complete
 
 "NETRW
 "> Layout
@@ -140,11 +133,8 @@
         endif
     endfunction
     inoremap <silent> <c-d> <esc>:call ShowDocumentation()<cr>
-" >> include '@' in the keyword definition in scss files (for coc-css)
-    autocmd FileType scss setl iskeyword+=@-@
-    autocmd FileType *sync let b:coc_additional_keywords = ["-"] 
-" >> install extensions
-    let g:coc_global_extensions = ['coc-html', 'coc-css', 'coc-json', 'coc-snippets']
+" >> 'ctrl-p' to open preview in markdown file
+    autocmd FileType markdown inoremap <c-p> <esc>:CocCommand markdown-preview-enhanced.openPreview<cr>i
 
 " SYNTAX RANGE
 ">> highlight languagens in markdown files
@@ -175,7 +165,10 @@
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```vim', '```', 'vim', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```yml', '```', 'yaml', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```yaml', '```', 'yaml', 'NonText')
+    autocmd BufWinEnter,FileType markdown call SyntaxRange#Include(':tex', ':', 'tex', 'NonText')
+    autocmd BufWinEnter,FileType markdown call SyntaxRange#Include(':::tex', ':::', 'tex', 'NonText')
 
+    autocmd BufWinEnter,FileType python call SyntaxRange#Include('"""jinja', '"""', 'jinja', 'NonText')
 " VIM-AI
 ">> setting the token file
     let g:vim_ai_token_file_path = "/home/yx/sec/openrouter.token"
@@ -269,4 +262,54 @@ function! s:copy_last_code_block()
     call setpos('.', l:save_pos)
 endfunction
 
-nnoremap <leader>cc :call <SID>copy_last_code_block()<CR>
+nnoremap <leader>cc :call <SID>copy_last_code_block()<CR> 
+
+
+function! GenerateTOC()
+    let toc_line = 0
+    let end_line = 0
+    let lnum = 1
+    let lastline = line('$')
+
+    while lnum <= lastline
+        let l = getline(lnum)
+        if l =~ '<!-- toc -->' && toc_line == 0
+            let toc_line = lnum
+        elseif l =~ '<!-- end -->' && toc_line > 0
+            let end_line = lnum
+            break
+        endif
+        let lnum += 1
+    endwhile
+
+    if toc_line == 0
+        echo "No <!-- toc --> found."
+        return
+    endif
+
+    if end_line > 0
+        execute (toc_line+1) . ',' . end_line . 'delete _'
+    endif
+   
+    let lnum = 1
+    while lnum <= line('$')
+        let line = getline(lnum)
+        if line =~ '^#\+ '
+            let level = strlen(matchstr(line, '^#\+'))
+            let title = matchstr(line, '^#\+\s*\zs.*')
+            let anchor = substitute(tolower(title), '[^a-z0-9 -]', '', 'g')
+            let anchor = substitute(anchor, ' ', '-', 'g')
+            call add(toc, repeat('  ', level-1) . '- [' . title . '](#' . anchor . ')')
+        endif
+        let lnum += 1
+    endwhile
+
+    let insert_lines = []
+    call extend(insert_lines, toc)
+    call add(insert_lines, '<!-- end -->')
+
+    call append(toc_line, insert_lines)
+    echo "TOC generated."
+endfunction
+
+command! TOC call GenerateTOC()

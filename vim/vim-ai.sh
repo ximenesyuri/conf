@@ -1,6 +1,5 @@
 declare -A VIM_AI_MODELS
-VIM_AI_MODELS[gemini]="google/gemini-2.5-flash-preview"
-VIM_AI_MODELS[gemini-think]="google/gemini-2.5-flash-preview:thinking"
+VIM_AI_MODELS[gemini]="google/gemini-2.5-flash"
 VIM_AI_MODELS[qwen]="qwen/qwen3-30b-a3b:free"
 VIM_AI_MODELS[gpt]="openai/gpt-4.1"
 VIM_AI_MODELS[gpt-mini]="openai/o4-mini-high"
