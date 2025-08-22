@@ -34,7 +34,6 @@
     "css.hover.references": true, 
     "css.hover.documentation": true,
     "css.format.braceStyle": "expand",
-    "pylsp.plugins.flake8.maxLineLength": 200,
     "coc-class-css.languages": [
         "html",
         "jinja",

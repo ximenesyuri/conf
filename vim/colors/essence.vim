@@ -40,10 +40,10 @@ let s:dark2 = '#0f0f0f'
     hi NormalFg ctermbg=NONE ctermfg=15
     hi Invisible ctermbg=0 ctermfg=0
 "> Text Style
-    hi Bold ctermbg=NONE ctermfg=NONE cterm=bold
-    hi Italic ctermbg=NONE ctermfg=NONE cterm=italic
-    hi Underlined cterm=underline ctermfg=NONE term=underline
-    hi Code ctermbg=8 ctermfg=13
+    hi Bold ctermbg=none ctermfg=12 cterm=bold
+    hi Italic ctermbg=none ctermfg=12 cterm=italic
+    hi Underlined ctermbg=none ctermfg=12 cterm=underline
+    hi Code ctermbg=none ctermfg=13 
     hi Comment ctermfg=7
     hi Conceal ctermbg=NONE ctermfg=NONE
     hi Constant ctermfg=5
@@ -137,11 +137,11 @@ let s:dark2 = '#0f0f0f'
     hi link PmenuThumb                    Pmenu
 
 " MARKDOWN
-    hi link markdownItalic                Highlight
+    hi link markdownItalic                Italic
     hi link markdownItalicDelimiter       Comment
-    hi link markdownBold                  Highlight
+    hi link markdownBold                  Bold
     hi link markdownBoldDelimiter         Comment
-    hi link markdownBoldItalic            Highlight
+    hi link markdownBoldItalic            BoldItalic 
     hi link markdownBoldItalicDelimiter   Comment
     hi link markdownStrike                Highlight
     hi link markdownStrikeDelimiter       Comment
@@ -217,125 +217,6 @@ hi! link yamlKeyValueDelimiter Delimiter
 
 hi! link deniteMatched NormalFg
 hi! link deniteMatchedChar Title
-
-hi! link elixirBlockDefinition Statement
-hi! link elixirDefine Statement
-hi! link elixirDocSigilDelimiter String
-hi! link elixirDocTest String
-hi! link elixirExUnitMacro Statement
-hi! link elixirExceptionDefine Statement
-hi! link elixirFunctionDeclaration Title
-hi! link elixirKeyword Statement
-hi! link elixirModuleDeclaration NormalFg
-hi! link elixirModuleDefine Statement
-hi! link elixirPrivateDefine Statement
-hi! link elixirStringDelimiter String
-
-hi! link graphqlName NormalFg
-hi! link graphqlOperator NormalFg
-
-hi! link gitmessengerHash Comment
-hi! link gitmessengerHeader Statement
-hi! link gitmessengerHistory Constant
-
-" JAVASCRIPT
-hi! link jsFlowMaybe NormalFg
-hi! link jsFlowObject NormalFg
-hi! link jsFlowType PreProc
-hi! link jsArrowFunction Operator
-hi! link jsClassDefinition NormalFg
-hi! link jsClassFuncName Title
-hi! link jsExport Statement
-hi! link jsFuncName Title
-hi! link jsFutureKeys Statement
-hi! link jsFuncCall NormalFg
-hi! link jsGlobalObjects Statement
-hi! link jsModuleKeywords Statement
-hi! link jsModuleOperators Statement
-hi! link jsNull Constant
-hi! link jsObjectFuncName Title
-hi! link jsObjectKey Identifier
-hi! link jsSuper Statement
-hi! link jsTemplateBraces Special
-hi! link jsUndefined Constant
-
-hi! link ngxDirective Statement
-
-hi! link plug1 NormalFg
-hi! link plug2 Identifier
-hi! link plugDash Comment
-hi! link plugMessage Special
-
-hi! link SignifySignAdd GitGutterAdd
-hi! link SignifySignChange GitGutterChange
-hi! link SignifySignChangeDelete GitGutterChangeDelete
-hi! link SignifySignDelete GitGutterDelete
-hi! link SignifySignDeleteFirstLine SignifySignDelete
-
-hi! link StartifyBracket Comment
-hi! link StartifyFile Identifier
-hi! link StartifyFooter Constant
-hi! link StartifyHeader Constant
-hi! link StartifyNumber Special
-hi! link StartifyPath Comment
-hi! link StartifySection Statement
-hi! link StartifySlash Comment
-hi! link StartifySpecial NormalFg
-
-hi! link svssBraces Delimiter
-hi! link swiftIdentifier NormalFg
-
-" TYPESCRIPT
-
-hi! link TSAttribute Special
-hi! link TSBoolean Constant
-hi! link TSCharacter Constant
-hi! link TSComment Comment
-hi! link TSConstructor NormalFg
-hi! link TSConditional Statement
-hi! link TSConstant Constant
-hi! link TSConstBuiltin Constant
-hi! link TSConstMacro Constant
-hi! link TSError Error
-hi! link TSException Statement
-hi! link TSField NormalFg
-hi! link TSFloat Constant
-hi! link TSInclude Statement
-hi! link TSKeyword Statement
-hi! link TSKeywordFunction Function
-hi! link TSLabel Special
-hi! link TSNamespace Statement
-hi! link TSNumber Constant
-hi! link TSOperator NormalFg
-hi! link TSParameter NormalFg
-hi! link TSParameterReference NormalFg
-hi! link TSProperty TSField
-hi! link TSPunctDelimiter NormalFg
-hi! link TSPunctBracket NormalFg
-hi! link TSPunctSpecial Special
-hi! link TSRepeat Statement
-hi! link TSString String
-hi! link TSStringRegex String
-hi! link TSStringEscape Special
-hi! link TSTag htmlTagName
-hi! link TSTagAttribute htmlArg
-hi! link TSTagDelimiter htmlTagName
-hi! link TSText NormalFg
-hi! link TSTitle Title
-hi! link TSType Type
-hi! link TSTypeBuiltin Type
-hi! link TSVariable NormalFg
-hi! link TSVariableBuiltin Statement
-hi! link typescriptAjaxMethods NormalFg
-hi! link typescriptBraces NormalFg
-hi! link typescriptEndColons NormalFg
-hi! link typescriptFuncKeyword Statement
-hi! link typescriptGlobalObjects Statement
-hi! link typescriptHtmlElemProperties NormalFg
-hi! link typescriptIdentifier Statement
-hi! link typescriptMessage NormalFg
-hi! link typescriptNull Constant
-hi! link typescriptParens NormalFg
 
 " TEX (Vimtex Syntax
 "> General Delimiters

@@ -1,14 +1,17 @@
 #!/bin/bash
 
-# Get the selected text from the X11 PRIMARY clipboard
-selected_text=$(xsel -o)
+URL=$(xclip -o -selection clipboard)
 
-# Remove whitespace from the selected text
-url=$(echo "$selected_text" | tr -d '[:space:]')
+if [[ -z "$URL" ]]; then
+    notify-send "No selection" "No text selected."
+    exit 1
+fi
 
-# Copy the modified URL to the X11 PRIMARY clipboard
-echo -n "$url" | xsel -i -b
+URL=$(echo "$URL" | xargs)
 
-# Open the URL in Firefox
-firefox "$url"
+case "$URL" in
+    http*) ;;
+    *) URL="https://$URL" ;;
+esac
 
+firefox "$URL" & disown

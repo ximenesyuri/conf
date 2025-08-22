@@ -5,7 +5,7 @@
 # "la" to list hidden files
     alias la="ls -a"
 # "shutdown" to shutdown quickly
-    alias shutdown="shutdown -h now"
+    alias shutd="shutdown -h now"
 # "restart" or "rst" restart xorg
     alias restart="xrdb $HOME/.Xresources"
     alias rst="restart"
@@ -13,12 +13,12 @@
     alias pt="setxkbmap -model abnt2 -layout br -variant abnt2"
 # "en" to set en-us keyboard layout
     alias en="setxkbmap -layout us -variant intl" 
-## "x" to to execute xdg-open
-    alias x="xdg-open"
 ## "mon" to configure the additional monitor
     alias mon="xrandr --output eDP-1 --auto --output HDMI-1 --auto --left-of eDP-1"
 ## "src" to load .bashrc
     alias src="source $HOME/.bashrc"
+## "clip" to copy output to clipboard
+    alias clip="xclip -selection clipboard"
 ## "g" as alias for "git" 
 ## Note: 
 ##    completion will work only if added "___git_complete g __git_main"

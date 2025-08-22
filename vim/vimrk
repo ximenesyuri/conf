@@ -37,7 +37,9 @@
     nnoremap <leader>e $
     vnoremap <leader>a ^
     vnoremap <leader>e $
-"> (',,g' or 'home') and (',,G' or 'end') to move to the beggining and ending of file
+    inoremap <leader>a <esc>^i
+    inoremap <leader>e <esc>$i<right>
+"> (']g' or 'home') and (']G' or 'end') to move to the beggining and ending of file
     nnoremap <leader>g gg
     nnoremap <home> gg
     nnoremap <leader>G GG
@@ -55,8 +57,6 @@
     nnoremap <expr> <down> (v:count == 0 ? 'gj' : 'j')            
     vnoremap <up> gk
     vnoremap <down> gj
-"> 'right' to add a space if cursor is at the end of a line
-    inoremap <expr> <right> (col('.') == virtcol('$')) ? " " : "<right>"
 
 " SEARCHING
 "> 'ctrl+f' or ',,f' to search.
@@ -67,7 +67,7 @@
 "> ',,s' to search and replace
     nnoremap <leader>s :%s/foo/bar/g
     inoremap <leader>s <esc>:%s/foo/bar/g
-    vnoremap <leader>s :%s/foo/bar/g
+    vnoremap <leader>s :s/foo/bar/g
   
 " EDITING
 "> 'space' and 'backspace' in normal mode and visual mode 
@@ -100,10 +100,10 @@
     inoremap <c-a> <esc>ggvGG$
 
 " SPELL
-">> ',,n' to add word to dictionary
+">> ']n' to add word to dictionary
     nnoremap <leader>n zgi
     inoremap <leader>n <esc>zg i
-">> ',,m' to display the spell hints
+">> ']m' to display the spell hints
     nnoremap <leader>m z=i
     inoremap <leader>m <esc>z=i
 
@@ -122,7 +122,7 @@
 
 " GENERAL
 "> 'esc' is normal mode to move to insert mode
-   nnoremap <esc> i
+    nnoremap <esc> i
 "> 'ctrl+s' to save
     nnoremap <c-s> :w!<cr>:startinsert<cr>
     inoremap <c-s> <esc> :w!<cr>:startinsert<cr>

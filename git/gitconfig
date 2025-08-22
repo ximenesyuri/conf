@@ -9,18 +9,24 @@
 	defaultBranch = main
 
 [alias] 
-        back = "!f() { git reset --hard HEAD~$1; }; f"
-        feat = "!f() { vars=\"$@\"; git commit -m \"feat: $vars\"; }; f"
-        fix  = "!f() { vars=\"$@\"; git commit -m \"fix:  $vars\"; }; f"
-        doc  = "!f() { vars=\"$@\"; git commit -m \"doc:  $vars\"; }; f"
-        ref  = "!f() { vars=\"$@\"; git commit -m \"ref:  $vars\"; }; f"
-        bla = "!f() { git commit -m \"...\"; }; f"
-        info = "!git log -1 --oneline; git status"
+        back  = "!f() { git reset --hard HEAD~$1; }; f"
+        feat  = "!f() { vars=\"$@\"; git commit -m \"feat: $vars\"; }; f"
+        fix   = "!f() { vars=\"$@\"; git commit -m \"fix:  $vars\"; }; f"
+        doc   = "!f() { vars=\"$@\"; git commit -m \"doc:  $vars\"; }; f"
+        conf  = "!f() { vars=\"$@\"; git commit -m \"conf:  $vars\"; }; f"
+        chore = "!f() { vars=\"$@\"; git commit -m \"chore:  $vars\"; }; f"
+        ci    = "!f() { vars=\"$@\"; git commit -m \"ci:  $vars\"; }; f"
+        ref   = "!f() { vars=\"$@\"; git commit -m \"ref:  $vars\"; }; f"
+        notes = "!f() { vars=\"$@\"; git commit -m \"notes:  $vars\"; }; f"
+        libs  = "!f() { vars=\"$@\"; git commit -m \"libs:  $vars\"; }; f"
+        bla   = "!f() { git commit -m \"...\"; }; f"
+        info  = "!git log -1 --oneline; git status"
         change = "!f() { local branch; if [ -z \"$1\" ]; then branch=$(git branch --all --format=\"%(refname:short)\" | fzf --prompt=\"Select branch: \" --height=20% --layout=reverse --border); if [ -n \"$branch\" ]; then git checkout \"$branch\"; fi; else git checkout \"$1\"; fi; }; f" 
         new-branch = checkout -b
         rm-branch = branch -D
         ammend = commit --ammend -m
-        send = "!f() { if [ -z \"$1\" ]; then git push origin HEAD; else git push origin \"$1\"; fi; }; f" 
+        send = "!f() { if [ -z \"$1\" ]; then git push origin HEAD; else git push origin \"$1\"; fi; }; f"
+        force = "!f() { if [ -z \"$1\" ]; then git push origin HEAD --force; else git push origin --force \"$1\"; fi; }; f"
         new-tag = "!f() { \
             if [ -z \"$1\" ]; then \
                 echo \"Error: Missing tag type (patch, minor, or major). Usage: git new-tag <type> ['message']\" && return 1; \
@@ -63,3 +69,6 @@
             fi; \
             git rebase -i HEAD~\"$num_commits\"; \
         }; f"
+        continue = rebase --continue
+        abort = rebase --abort
+

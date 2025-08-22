@@ -127,12 +127,15 @@
 ">> 'ctrl+d' to show documentation
     function! ShowDocumentation()
         if CocAction('hasProvider', 'hover')
-            call CocAction('definitionHover')
+            call CocAction('doHover')
             sleep 1
             startinsert
         endif
     endfunction
     inoremap <silent> <c-d> <esc>:call ShowDocumentation()<cr>
+">> '<leader>d' to go to definition
+    nnoremap <leader>d :rightbelow call CocActionAsync('jumpDefinition', 'vsplit')<CR>:vert resize 80<CR>
+    inoremap <leader>d <esc>:rightbelow call CocActionAsync('jumpDefinition', 'vsplit')<CR>:vert resize 80<CR>
 " >> 'ctrl-p' to open preview in markdown file
     autocmd FileType markdown inoremap <c-p> <esc>:CocCommand markdown-preview-enhanced.openPreview<cr>i
 
@@ -167,8 +170,8 @@
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include('```yaml', '```', 'yaml', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include(':tex', ':', 'tex', 'NonText')
     autocmd BufWinEnter,FileType markdown call SyntaxRange#Include(':::tex', ':::', 'tex', 'NonText')
+    autocmd BufWinEnter,FileType python call SyntaxRange#Include('f"""jinja', '"""', 'jinja', 'NonText')
 
-    autocmd BufWinEnter,FileType python call SyntaxRange#Include('"""jinja', '"""', 'jinja', 'NonText')
 " VIM-AI
 ">> setting the token file
     let g:vim_ai_token_file_path = "/home/yx/sec/openrouter.token"
@@ -263,53 +266,57 @@ function! s:copy_last_code_block()
 endfunction
 
 nnoremap <leader>cc :call <SID>copy_last_code_block()<CR> 
+inoremap <leader>cc <esc>:call <SID>copy_last_code_block()<CR>i
 
-
-function! GenerateTOC()
-    let toc_line = 0
-    let end_line = 0
-    let lnum = 1
-    let lastline = line('$')
-
-    while lnum <= lastline
-        let l = getline(lnum)
-        if l =~ '<!-- toc -->' && toc_line == 0
-            let toc_line = lnum
-        elseif l =~ '<!-- end -->' && toc_line > 0
-            let end_line = lnum
-            break
-        endif
-        let lnum += 1
-    endwhile
-
-    if toc_line == 0
-        echo "No <!-- toc --> found."
+function! MarkdownCustomHighlight()
+    if exists("b:markdown_custom_highlight_loaded")
         return
     endif
+    let b:markdown_custom_highlight_loaded = 1
+    silent! syntax clear markdownSphinxAnchor
+    silent! syntax clear markdownSphinxAnchorParen
+    silent! syntax clear markdownSphinxAnchorContent
+    silent! syntax clear markdownSphinxAnchorEquals
+    silent! syntax clear markdownAutolink
+    silent! syntax clear markdownAutolinkDelimiter
+    silent! syntax clear markdownAutolinkContent
 
-    if end_line > 0
-        execute (toc_line+1) . ',' . end_line . 'delete _'
-    endif
-   
-    let lnum = 1
-    while lnum <= line('$')
-        let line = getline(lnum)
-        if line =~ '^#\+ '
-            let level = strlen(matchstr(line, '^#\+'))
-            let title = matchstr(line, '^#\+\s*\zs.*')
-            let anchor = substitute(tolower(title), '[^a-z0-9 -]', '', 'g')
-            let anchor = substitute(anchor, ' ', '-', 'g')
-            call add(toc, repeat('  ', level-1) . '- [' . title . '](#' . anchor . ')')
-        endif
-        let lnum += 1
-    endwhile
+    syntax region markdownSphinxAnchor start=/\v\(([^)]*)\)=/ end=/=/ keepend oneline contains=markdownSphinxAnchorParen,markdownSphinxAnchorContent,markdownSphinxAnchorEquals
+    syntax match markdownSphinxAnchorParen /(/ contained containedin=markdownSphinxAnchor
+    syntax match markdownSphinxAnchorEquals /)=/ contained containedin=markdownSphinxAnchor
+    syntax match markdownSphinxAnchorContent /\v[^()_=]+/ contained containedin=markdownSphinxAnchor
+    syntax region markdownAutolink start=/{/ end=/}/ keepend oneline contains=markdownAutolinkDelimiter,markdownAutolinkContent
+    syntax match markdownAutolinkContent /\v[^{}]+/ contained containedin=markdownAutolink
+    syntax match markdownAutolinkDelimiter /{/ contained containedin=markdownAutolink
+    syntax match markdownAutolinkDelimiter /}/ contained containedin=markdownAutolink
 
-    let insert_lines = []
-    call extend(insert_lines, toc)
-    call add(insert_lines, '<!-- end -->')
-
-    call append(toc_line, insert_lines)
-    echo "TOC generated."
+    hi link markdownSphinxAnchorParen   Comment
+    hi link markdownSphinxAnchorEquals  Comment
+    hi markdownSphinxAnchorContent ctermfg=4 ctermbg=none cterm=underline
+    hi link markdownAutolinkDelimiter   Comment
+    hi markdownAutolinkContent     ctermfg=1 ctermbg=none cterm=underline
 endfunction
 
-command! TOC call GenerateTOC()
+autocmd FileType markdown call MarkdownCustomHighlight()
+
+function! PythonCustomHighlight()
+    if exists("b:python_custom_highlight_loaded")
+        return
+    endif
+    let b:html_custom_highlight_loaded = 1
+    silent! syntax clear pythonDelimiter
+    silent! syntax clear pythonEnd
+    
+    syntax match pythonDelimiter /{/
+    syntax match pythonDelimiter /}/
+    syntax match pythonDelimiter /\[/
+    syntax match pythonDelimiter /\]/
+    syntax match pythonDelimiter /(/
+    syntax match pythonDelimiter /)/
+    syntax match pythonEnd /:/
+
+    hi link pythonDelimiter   Delimiter
+    hi pythonEnd ctermfg=5
+endfunction
+
+autocmd FileType python call PythonCustomHighlight()

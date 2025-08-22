@@ -15,18 +15,19 @@
     gaps outer 0
 ## status bar
     bar {
-        status_command i3status --config ~/.config/i3/i3status.conf 
+        status_command i3status --config ~/conf/i3/status.conf 
         i3bar_command i3bar
-    #    mode hide
-    #    hidden_state hide
         modifier Mod4  
-        workspace_buttons no
-        separator_symbol " · "
+        workspace_buttons yes
+        separator_symbol "  "
 
         colors {
             background #000000
             statusline #D0D0D0
-            separator  #000000
+            separator  #ffffff
+            focused_workspace  #262626 #262626 #ffffff  # border, bg, fg
+            active_workspace   #262626 #262626 #ffffff
+            inactive_workspace #000000 #000000 #ffffff
         }
     }
 
@@ -59,8 +60,10 @@
     bindsym --release Mod1+minus exec --no-startup-id import -window root ~/tmp/print.png
     bindsym --release Mod1+plus exec --no-startup-id  import ~/tmp/print.png
 ##  "alt+0" and "alt+9" to adjust brightness.
-    bindsym Mod1+0 exec --no-startup-id sh ~/.config/i3/scripts/bkl-inc.sh 
-    bindsym Mod1+9 exec --no-startup-id sh ~/.config/i3/scripts/bkl-dec.sh
+    bindsym Mod1+0 exec --no-startup-id sh ~/conf/i3/scripts/backlight_increase.sh
+    bindsym Mod1+9 exec --no-startup-id sh ~/conf/i3/scripts/backlight_decrease.sh
+## "ctrl+0" to open selected text as a firefox url.
+    bindsym Ctrl+o exec --no-startup-id sh ~/conf/i3/scripts/open_sel.sh
 
 # KEYBIND
 ## set default modifier
@@ -104,4 +107,4 @@
 # OTHER
     exec_always xset r rate 130 35
     exec_always setxkbmap -layout us -variant intl
-    exec_always --no-startup-id dunst -config ~/.config/dunst/dunstrc 
+    exec_always --no-startup-id dunst -config ~/conf/i3/dunst.ini
