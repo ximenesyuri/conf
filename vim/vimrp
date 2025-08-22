@@ -109,7 +109,7 @@
 
 " ULTISNIPS
 "> set the snippets directory
-    let g:UltiSnipsSnippetDirectories=[expand($YX_VIM . '/snippets')]
+    let g:UltiSnipsSnippetDirectories=[expand($CONF_VIM . '/snippets')]
 "> set the filetype
     autocmd bufnewfile *.snippets :set filetype=snippets
 "> set the key to expand the snippets
@@ -174,9 +174,9 @@
 
 " VIM-AI
 ">> setting the token file
-    let g:vim_ai_token_file_path = "/home/yx/sec/openrouter.token"
+    let g:vim_ai_token_file_path = expand($SEC . '/openrouter.token')
 ">> setting roles file
-    let g:vim_ai_roles_config_file = '/home/yx/conf/vim/roles.ini'
+    let g:vim_ai_roles_config_file = expand($CONF_VIM . '/roles.ini')
 ">> setting the default model
     let g:vim_ai_model = "gpt-4.1"
 ">> setting the default initial prompt for ':AIChat'

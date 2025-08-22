@@ -6,6 +6,23 @@ PS1="$dir1\$ "
 LS_COLORS=$LS_COLORS:'di=0;94:'
 export LS_COLORS
 
+# EXPORTS
+export CONF_BASH=${BASH_SOURCE%/*}
+export CONF=${CONF_BASH%/*}
+export CONF_VIM=$CONF/vim
+export CONF_GIT=$CONF/git
+export COMPL=$CONF_BASH/compl
+
 # ADDITIONAL FILES
-source ${BASH_SOURCE%/*}/bashra 
-source ${BASH_SOURCE%/*}/bashrf
+source $CONF_BASH/bashra 
+source $CONF_BASH/bashrf
+if [ -f $CONF_BASH/personal ]; then
+    source $CONF_BASH/personal
+fi
+source $CONF_GIT/git.sh
+source $CONF_VIM/vim-ai.sh
+
+# COMPLETION
+for file in $COMPL/*; do
+    source "$file"
+done
