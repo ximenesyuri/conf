@@ -12,13 +12,18 @@ export CONF=${CONF_BASH%/*}
 export CONF_VIM=$CONF/vim
 export CONF_GIT=$CONF/git
 export COMPL=$CONF_BASH/compl
+export BIN=$CONF/bin
+
+# PATH
+export PATH=$PATH:$BIN
 
 # ADDITIONAL FILES
 source $CONF_BASH/bashra 
 source $CONF_BASH/bashrf
-if [ -f $CONF_BASH/personal ]; then
-    source $CONF_BASH/personal
-fi
+personals=$(find $CONF -type f -name "*.ignore")
+for p in ${personals[@]}; do
+    source $p
+done
 source $CONF_GIT/git.sh
 source $CONF_VIM/vim-ai.sh
 
