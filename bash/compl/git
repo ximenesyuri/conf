@@ -3967,8 +3967,91 @@ __git_complete ()
 	___git_complete $1 $func
 }
 
-___git_complete git __git_main
-___git_complete g __git_main
+_git_ext_custom_commands="
+    stage
+    commit
+    tag
+    branch
+    feat fix doc conf chore ci ref notes libs
+    bla info change
+    back new-branch rm-branch ammend send force reb continue abort
+"
+
+_git_ext_stage_subs="add list rm"
+_git_ext_commit_subs="new list rm"
+_git_ext_tag_subs="new list rm send"
+_git_ext_branch_subs="new list rm send"
+
+_git_ext ()
+{
+    local cur prev words cword
+    _get_comp_words_by_ref -n =: cur prev words cword
+
+    local cmd="${words[1]}"
+    local sub="${words[2]:-}"
+
+    # Top-level (git <TAB>): show builtins, aliases, and our extras
+    if [[ $cword -eq 1 ]]; then
+        # Get built-in/aliased commands, from the same helper used by _git
+        local base_cmds
+        if test -n "${GIT_TESTING_PORCELAIN_COMMAND_LIST-}"; then
+            base_cmds="$GIT_TESTING_PORCELAIN_COMMAND_LIST"
+        else
+            base_cmds="$(__git --list-cmds=list-mainporcelain,others,nohelpers,alias,list-complete,config 2>/dev/null)"
+        fi
+        __gitcomp "$base_cmds $_git_ext_custom_commands"
+        return
+    fi
+
+    # Stage subcompletion
+    case "$cmd" in
+        stage)
+            if [[ $cword -eq 2 ]]; then
+                __gitcomp "$_git_ext_stage_subs"
+                return 0
+            elif [[ $sub == "rm" && $cword -eq 3 ]]; then
+                local staged
+                staged="$(git diff --cached --name-only 2>/dev/null)"
+                [[ -n "$staged" ]] && __gitcomp_nl "$staged"
+                return 0
+            fi
+            ;;
+        commit)
+            if [[ $cword -eq 2 ]]; then
+                __gitcomp "$_git_ext_commit_subs"
+                return 0
+            fi
+            ;;
+        tag)
+            if [[ $cword -eq 2 ]]; then
+                __gitcomp "$_git_ext_tag_subs"
+                return 0
+            elif [[ $sub == "rm" && $cword -eq 3 ]]; then
+                local tags
+                tags="$(git tag --sort=-creatordate 2>/dev/null)"
+                [[ -n "$tags" ]] && __gitcomp_nl "$tags"
+                return 0
+            fi
+            ;;
+        branch)
+            if [[ $cword -eq 2 ]]; then
+                __gitcomp "$_git_ext_branch_subs"
+                return 0
+            elif [[ $sub == "rm" && $cword -eq 3 ]]; then
+                local branches
+                branches="$(git branch --format="%(refname:short)" 2>/dev/null)"
+                [[ -n "$branches" ]] && __gitcomp_nl "$branches"
+                return 0
+            fi
+            ;;
+    esac
+
+    # Otherwise, fall-through to stock git completion for all other cases
+    __git_main
+}
+
+__git_complete git _git_ext
+__git_complete g  _git_ext
 ___git_complete gitk __gitk_main
 
 # The following are necessary only for Cygwin, and only are needed
